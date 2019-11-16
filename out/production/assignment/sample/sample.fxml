@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="sample.MainController">
+    <children>
+        <TabPane tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0">
+            <Tab fx:id="tabCourse" text="Course">
+            </Tab>
+            <Tab fx:id="tabUnit" text="Unit">
+            </Tab>
+            <Tab fx:id="tabStaff" text="Staff">
+            </Tab>
+        </TabPane>
+    </children>
+</AnchorPane>
