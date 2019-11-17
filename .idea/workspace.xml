@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/CourseDetailController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/CourseDetailController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Service/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Service/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/resources/CourseDetail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/resources/CourseDetail.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/resources/TabCourse.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/resources/TabCourse.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Controller/CourseDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/CourseDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Controller/TabCourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/TabCourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Service/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Service/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/resources/CourseDetail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/resources/CourseDetail.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/resources/TabCourse.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/resources/TabCourse.fxml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,8 +100,12 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectId" id="1TeGaiGDUUrGVDG2XSTLY4QsCBX" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
@@ -255,11 +275,23 @@
       <workItem from="1573834359375" duration="531000" />
       <workItem from="1573897918433" duration="15171000" />
       <workItem from="1573916849311" duration="4225000" />
+      <workItem from="1573988191523" duration="11769000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
