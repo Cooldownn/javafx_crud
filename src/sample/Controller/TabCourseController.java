@@ -34,10 +34,12 @@ public class TabCourseController implements Initializable
     @FXML Label nextID;
     @FXML RadioButton radio_sgs;
     @FXML RadioButton radio_hn;
+    @FXML ComboBox course_box;
     private int index;
     private int delID;
     private int tableRow;
     private String radio = "";
+    private String type = "";
 
     private Connection connect() {
         // SQLite connection string
@@ -55,6 +57,8 @@ public class TabCourseController implements Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        nextID.setVisible(false);
+        // Radio Button
         ToggleGroup tg = new ToggleGroup();
         radio_sgs.setToggleGroup(tg);
         radio_hn.setToggleGroup(tg);
@@ -68,6 +72,20 @@ public class TabCourseController implements Initializable
                 }
             }
         });
+
+        // Combo Box
+        ObservableList<String> mBox = FXCollections.observableArrayList(
+                "UG","PG"
+        );
+        course_box.setItems(mBox);
+        course_box.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                type = course_box.getValue().toString();
+            }
+        });
+
+        // Table
         ObservableList<Course> list = FXCollections.observableArrayList();
 
         TableColumn idCol = new TableColumn<Course, Integer>("ID");
@@ -111,6 +129,10 @@ public class TabCourseController implements Initializable
                 String director = tf_director.getText();
                 String deputy = tf_deputy.getText();
 
+                if (type.isEmpty()) {
+                    return;
+                }
+
                 if (name.isEmpty()) {
                     tf_name.requestFocus();
                     alertError.setContentText("You cannot leave Course Name blank");
@@ -130,18 +152,20 @@ public class TabCourseController implements Initializable
                 }
 
                 if (director.isEmpty()) {
+                    tf_director.requestFocus();
                     alertError.setContentText("You cannot leave Course Director blank");
                     alertError.show();
                     return;
                 }
 
                 if (deputy.isEmpty()) {
+                    tf_deputy.requestFocus();
                     alertError.setContentText("You cannot leave Course Deputy blank");
                     alertError.show();
                     return;
                 }
 
-                String sql = "INSERT INTO Course(course_name, course_code, course_desc, course_director, course_deputy) VALUES(?,?,?,?,?)";
+                String sql = "INSERT INTO Course(course_name, course_code, course_desc, course_director, course_deputy, course_offer) VALUES(?,?,?,?,?,?)";
 
                 try (Connection conn = TabCourseController.this.connect();
                      PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -150,6 +174,7 @@ public class TabCourseController implements Initializable
                     pstmt.setString(3, desc);
                     pstmt.setString(4,director);
                     pstmt.setString(5,deputy);
+                    pstmt.setString(6, type);
                     pstmt.executeUpdate();
                     alertSuccess.setContentText("Successfully create new course");
                     alertSuccess.show();

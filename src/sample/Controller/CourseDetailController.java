@@ -18,10 +18,13 @@ public class CourseDetailController implements Initializable {
     @FXML TextField detail_desc;
     @FXML TextField detail_director;
     @FXML TextField detail_deputy;
+    @FXML TextField detail_offer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         detail_id.setEditable(false);
+        detail_desc.setEditable(false);
+        detail_offer.setEditable(false);
         detailSaveBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -107,6 +110,7 @@ public class CourseDetailController implements Initializable {
                 detail_desc.setText(rs.getString("course_desc"));
                 detail_director.setText(rs.getString("course_director"));
                 detail_deputy.setText(rs.getString("course_deputy"));
+                detail_offer.setText(rs.getString("course_offer"));
             }
 
         } catch (SQLException e) {
