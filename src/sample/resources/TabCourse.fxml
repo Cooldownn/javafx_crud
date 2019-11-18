@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.TabCourseController">
-    <Button fx:id="addBtn" layoutX="590.0" layoutY="412.0" text="NEW COURSE" textFill="#111111" />
+    <Button fx:id="addBtn" layoutX="590.0" layoutY="412.0" text="Add Course" textFill="#111111" />
     <TableView fx:id="course_table" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="475.0">
     </TableView>
    <Label layoutX="554.0" layoutY="77.0" text="Course Name" />
@@ -26,6 +26,6 @@
    <TextField fx:id="tf_deputy" layoutX="554.0" layoutY="361.0" />
    <RadioButton fx:id="radio_sgs" layoutX="556.0" layoutY="241.0" mnemonicParsing="false" text="SGS" />
    <RadioButton fx:id="radio_hn" layoutX="640.0" layoutY="241.0" mnemonicParsing="false" text="HN" />
-   <ComboBox layoutX="554.0" layoutY="38.0" prefHeight="27.0" prefWidth="161.0" fx:id="course_box" />
+   <ComboBox fx:id="course_box" layoutX="554.0" layoutY="38.0" prefHeight="27.0" prefWidth="161.0" />
 
 </AnchorPane>

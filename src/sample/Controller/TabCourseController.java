@@ -182,7 +182,7 @@ public class TabCourseController implements Initializable
                     System.out.println(e.getMessage());
                 }
 
-                int mID = Integer.valueOf(index + 1);
+                int mID = index + 1;
                 Course course = new Course();
                 course.setId(mID);
                 course.setCourseName(name);
@@ -195,6 +195,8 @@ public class TabCourseController implements Initializable
                 nextID.setText(String.valueOf(mID));
                 tf_name.clear();
                 tf_code.clear();
+                tf_director.clear();
+                tf_deputy.clear();
             }
         });
         course_table.setItems(list);

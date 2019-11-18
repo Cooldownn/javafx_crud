@@ -5,9 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 import sample.Model.Unit;
 
 import java.net.URL;
@@ -23,9 +28,16 @@ public class TabUnitController implements Initializable
     @FXML TextField unit_lecturer;
     @FXML Button unitAddBtn;
     @FXML ComboBox unit_box;
+    @FXML Button unitDelBtn;
+    @FXML ComboBox unit_course;
 
     private String offer = "";
     private int index;
+    private int tableRow;
+    private int delID;
+    private String s1;
+    private String chooseCourse;
+    private String chooseOffer;
 
     private Connection connect() {
         // SQLite connection string
@@ -43,15 +55,43 @@ public class TabUnitController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        // Combo Box
+        // Combo Box Offer
         ObservableList<String> mBox = FXCollections.observableArrayList(
-                "S1","S2","S3","S1 & S2","S1 & S3","S2 & S3"
+                "S1","S2","S3","S1 & S2","S1 & S3","S2 & S3", "S1 & S2 & S3"
         );
         unit_box.setItems(mBox);
         unit_box.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 offer = unit_box.getValue().toString();
+            }
+        });
+
+        // Combo Box Course
+        ObservableList<String> mList = FXCollections.observableArrayList();
+        String mSql = "SELECT course_code, course_offer FROM Course";
+        try {
+            Connection conn = this.connect();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(mSql);
+
+            while(rs.next()) {
+                String courseCode = rs.getString("course_code");
+                String courseOffer = rs.getString("course_offer");
+                String combine = courseCode + " - " + courseOffer;
+                mList.add(combine);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        unit_course.setItems(mList);
+        unit_course.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                s1 = unit_course.getValue().toString();
+                chooseCourse = s1.substring(0,5);
+                chooseOffer = s1.substring(8);
+                System.out.println(chooseCourse);
             }
         });
 
@@ -156,7 +196,86 @@ public class TabUnitController implements Initializable
                 unit_code.clear();
                 unit_lecturer.clear();
                 unit_examiner.clear();
+
+                // If choose to add course
+                // Check Level 1,2,3 to UG and 4,5 to PG
+                int inputCode = Integer.valueOf(code.substring(4,5));
+                if (inputCode < 4 && chooseOffer.equals("PG")) {
+                    alertError.setContentText("Cannot add to course");
+                    alertError.show();
+                    return;
+                }
+                if (inputCode > 3 && chooseOffer.equals("UG")) {
+                    alertError.setContentText("Cannot add to course");
+                    alertError.show();
+                    return;
+                }
+                String mSql = "INSERT INTO Course_Unit(course_code, unit_code) VALUES(?,?)";
+                try (Connection conn = TabUnitController.this.connect();
+                     PreparedStatement st = conn.prepareStatement(mSql)) {
+                    st.setString(1,chooseCourse);
+                    st.setString(2,code);
+                    st.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         });
+
+        unit_table.setRowFactory(tv -> {
+            TableRow<Unit> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                    Unit clickedRow = row.getItem();
+                    printRow(clickedRow);
+                }
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
+                    Unit clickedRow = row.getItem();
+                    tableRow = row.getIndex();
+                    delID = clickedRow.getId();
+                }
+            });
+            return row;
+        });
+
+        unitDelBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (delID == 0) {
+                    System.out.println("Nothing happens");
+                    return;
+                }
+                String sql = "DELETE FROM Unit WHERE id = ?";
+
+                try (Connection conn = TabUnitController.this.connect();
+                     PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                    // set the corresponding param
+                    pstmt.setInt(1, delID);
+                    // execute the delete statement
+                    pstmt.executeUpdate();
+
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+
+                unit_table.getItems().remove(tableRow);
+            }
+        });
+    }
+
+    private void printRow(Unit item) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/UnitDetail.fxml"));
+            Parent root = loader.load();
+            UnitDetailController controller = loader.getController();
+            controller.getData(item.getId());
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }
