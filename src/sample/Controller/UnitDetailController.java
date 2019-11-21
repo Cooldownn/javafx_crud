@@ -24,6 +24,8 @@ public class UnitDetailController implements Initializable {
     @FXML ListView listView;
     @FXML ComboBox newCourseBox;
     @FXML Button assignNewCourse;
+    @FXML ComboBox box_examiner;
+    @FXML ComboBox box_lecturer;
 
     private String current = "";
     private String userChoose = "";
@@ -49,6 +51,8 @@ public class UnitDetailController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Alert alertError = new Alert(Alert.AlertType.ERROR);
         Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
+        unit_detailExaminer.setEditable(false);
+        unit_detailLecturer.setEditable(false);
         unit_detailID.setEditable(false);
 
         // Combo Box New Course
@@ -163,11 +167,48 @@ public class UnitDetailController implements Initializable {
                     pstmt.setInt(6, id);
                     // update
                     pstmt.executeUpdate();
+                    alertSuccess.setContentText("Successfully update");
+                    alertSuccess.show();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
             }
         });
+
+        // Combo Box Examiner
+        ObservableList<String> staffList = FXCollections.observableArrayList();
+        String sql1 = "SELECT staff_name FROM Staff";
+        try {
+            Connection conn = this.connect();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql1);
+
+            while (rs.next()) {
+                String staffName = rs.getString("staff_name");
+                staffList.add(staffName);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        box_examiner.setItems(staffList);
+        box_examiner.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String examiner = box_examiner.getValue().toString();
+                unit_detailExaminer.setText(examiner);
+            }
+        });
+
+        box_lecturer.setItems(staffList);
+        box_lecturer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String lecturer = box_lecturer.getValue().toString();
+                unit_detailLecturer.setText(lecturer);
+            }
+        });
+
     }
 
     public void getData(int id) {

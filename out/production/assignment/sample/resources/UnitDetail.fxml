@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="457.0" prefWidth="404.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.UnitDetailController">
+<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.UnitDetailController">
     <children>
         <Label layoutX="14.0" layoutY="50.0" text="ID" />
         <Label layoutX="14.0" layoutY="90.0" text="Unit name" />
@@ -15,7 +15,7 @@
         <Label layoutX="14.0" layoutY="170.0" text="Chief examiner" />
         <TextField fx:id="unit_detailName" layoutX="121.0" layoutY="85.0" prefHeight="27.0" prefWidth="218.0" />
         <TextField fx:id="unit_detailCode" layoutX="121.0" layoutY="125.0" prefHeight="27.0" prefWidth="218.0" />
-        <Button fx:id="unit_detailBtn" layoutX="236.0" layoutY="289.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="103.0" text="SAVE" />
+        <Button fx:id="unit_detailBtn" layoutX="179.0" layoutY="289.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="103.0" text="SAVE" />
         <TextField fx:id="unit_detailID" layoutX="121.0" layoutY="45.0" prefHeight="27.0" prefWidth="218.0" />
         <TextField fx:id="unit_detailExaminer" layoutX="121.0" layoutY="165.0" prefHeight="27.0" prefWidth="218.0" />
         <Label layoutX="14.0" layoutY="210.0" text="Lecturer" />
@@ -23,10 +23,12 @@
       <Label layoutX="14.0" layoutY="250.0" text="Offer" />
       <TextField fx:id="unit_detailOffer" layoutX="122.0" layoutY="245.0" prefHeight="27.0" prefWidth="218.0" />
       <Label layoutX="14.0" layoutY="294.0" text="Current Course" />
-      <Label layoutX="193.0" layoutY="350.0" text="Assign new course" />
-      <ComboBox fx:id="newCourseBox" layoutX="193.0" layoutY="380.0" prefHeight="27.0" prefWidth="103.0" />
-      <Button fx:id="assignNewCourse" layoutX="313.0" layoutY="380.0" mnemonicParsing="false" text="Assign" />
-      <ListView layoutX="14.0" layoutY="316.0" prefHeight="116.0" prefWidth="139.0" fx:id="listView" />
+      <Label layoutX="160.0" layoutY="349.0" text="Assign new course" />
+      <ComboBox fx:id="newCourseBox" layoutX="160.0" layoutY="380.0" prefHeight="27.0" prefWidth="103.0" />
+      <Button fx:id="assignNewCourse" layoutX="282.0" layoutY="380.0" mnemonicParsing="false" text="Assign" />
+      <ListView fx:id="listView" layoutX="14.0" layoutY="316.0" prefHeight="116.0" prefWidth="126.0" />
+      <ComboBox fx:id="box_lecturer" layoutX="366.0" layoutY="205.0" prefHeight="27.0" prefWidth="191.0" />
+      <ComboBox fx:id="box_examiner" layoutX="366.0" layoutY="165.0" prefHeight="27.0" prefWidth="191.0" />
     </children>
 
 </AnchorPane>

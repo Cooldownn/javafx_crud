@@ -9,6 +9,9 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.Controller.TabStaffController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="500.0" prefWidth="800.0">
+    <TableView fx:id="staff_table" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="600.0">
+    </TableView>
+
 
 </AnchorPane>

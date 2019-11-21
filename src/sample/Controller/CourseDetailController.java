@@ -1,5 +1,7 @@
 package sample.Controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,12 +26,17 @@ public class CourseDetailController implements Initializable {
     @FXML TextField detail_deputy;
     @FXML TextField detail_offer;
     @FXML Button unitBtn;
+    @FXML ComboBox box_director;
+    @FXML ComboBox box_deputy;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         detail_id.setEditable(false);
         detail_desc.setEditable(false);
         detail_offer.setEditable(false);
+        detail_director.setEditable(false);
+        detail_deputy.setEditable(false);
+        Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
         detailSaveBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -78,6 +85,8 @@ public class CourseDetailController implements Initializable {
                     pstmt.setInt(6, id);
                     // update
                     pstmt.executeUpdate();
+                    alertSuccess.setContentText("Successfully update");
+                    alertSuccess.show();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
@@ -100,6 +109,42 @@ public class CourseDetailController implements Initializable {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+
+        // Combo Box Course Director
+        ObservableList<String> staffList = FXCollections.observableArrayList();
+        String sql1 = "SELECT staff_name FROM Staff";
+        try {
+            Connection conn = this.connect();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql1);
+
+            while (rs.next()) {
+                String staffName = rs.getString("staff_name");
+                staffList.add(staffName);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        box_director.setItems(staffList);
+        box_director.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String director = box_director.getValue().toString();
+                detail_director.setText(director);
+            }
+        });
+
+        // Combo Box Deputy
+        box_deputy.setItems(staffList);
+        box_deputy.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String deputy = box_deputy.getValue().toString();
+                detail_deputy.setText(deputy);
             }
         });
     }
