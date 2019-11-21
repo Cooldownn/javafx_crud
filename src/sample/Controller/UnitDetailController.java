@@ -1,11 +1,13 @@
 package sample.Controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.geometry.Orientation;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.sql.*;
@@ -19,6 +21,15 @@ public class UnitDetailController implements Initializable {
     @FXML TextField unit_detailLecturer;
     @FXML TextField unit_detailOffer;
     @FXML Button unit_detailBtn;
+    @FXML ListView listView;
+    @FXML ComboBox newCourseBox;
+    @FXML Button assignNewCourse;
+
+    private String current = "";
+    private String userChoose = "";
+    private String isValid = "";
+    private String code = "";
+    private ObservableList<String> courseList = FXCollections.observableArrayList();
 
     private Connection connect() {
         // SQLite connection string
@@ -36,7 +47,71 @@ public class UnitDetailController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Alert alertError = new Alert(Alert.AlertType.ERROR);
+        Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
         unit_detailID.setEditable(false);
+
+        // Combo Box New Course
+        ObservableList<String> mList = FXCollections.observableArrayList();
+        String mSql = "SELECT course_code, course_offer FROM Course";
+        try {
+            Connection conn = this.connect();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(mSql);
+
+            while(rs.next()) {
+                String courseCode = rs.getString("course_code");
+                String courseOffer = rs.getString("course_offer");
+                mList.add(courseCode + " - " +courseOffer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        newCourseBox.setItems(mList);
+        newCourseBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String opt = newCourseBox.getValue().toString();
+                userChoose = opt.substring(0,5);
+                isValid = opt.substring(8,10);
+            }
+        });
+
+        //
+        assignNewCourse.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (userChoose.equals(current)) {
+                    alertError.setContentText("This course has already been assigned");
+                    alertError.show();
+                    return;
+                }
+                int check = Integer.valueOf(code.substring(4,5));
+                if (check < 4 && isValid.equals("PG")) {
+                    alertError.setContentText("UG Unit cannot add to PG Course");
+                    alertError.show();
+                    return;
+                }
+                if (check > 3 && isValid.equals("UG")) {
+                    alertError.setContentText("PG Unit cannot add to UG Course");
+                    alertError.show();
+                    return;
+                }
+
+                String mSQL = "INSERT INTO Course_Unit(course_code, unit_code) VALUES(?,?)";
+                try (Connection conn = UnitDetailController.this.connect();
+                     PreparedStatement pstmt = conn.prepareStatement(mSQL)) {
+                    pstmt.setString(1, userChoose);
+                    pstmt.setString(2, code);
+                    pstmt.executeUpdate();
+                    alertSuccess.setContentText("Successfully add to course " + userChoose);
+                    alertSuccess.show();
+                    listView.getItems().add(userChoose);
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
 
         unit_detailBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -111,10 +186,30 @@ public class UnitDetailController implements Initializable {
                 unit_detailExaminer.setText(rs.getString("unit_examiner"));
                 unit_detailLecturer.setText(rs.getString("unit_lecturer"));
                 unit_detailOffer.setText(rs.getString("unit_offer"));
+                code = rs.getString("unit_code");
             }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+        // Get Current Course
+        String sql1 = "SELECT course_code FROM Course_Unit WHERE (unit_code = ? AND course_code IS NOT NULL)";
+        try (Connection conn = UnitDetailController.this.connect();
+             PreparedStatement ps = conn.prepareStatement(sql1)) {
+
+            ps.setString(1, unit_detailCode.getText());
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                current = rs.getString("course_code");
+                courseList.add(current);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        listView.setOrientation(Orientation.VERTICAL);
+        listView.getItems().addAll(courseList);
     }
 }

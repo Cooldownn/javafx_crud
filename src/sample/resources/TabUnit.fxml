@@ -22,7 +22,4 @@
    <ComboBox fx:id="unit_box" layoutX="570.0" layoutY="280.0" prefHeight="27.0" prefWidth="161.0" />
    <Button fx:id="unitAddBtn" layoutX="616.0" layoutY="410.0" mnemonicParsing="false" text="Add New" />
    <Button fx:id="unitDelBtn" layoutX="488.0" layoutY="215.0" mnemonicParsing="false" text="DELETE" textFill="#f50606" />
-   <Label layoutX="570.0" layoutY="320.0" text="Course" />
-   <ComboBox layoutX="570.0" layoutY="340.0" prefHeight="27.0" prefWidth="161.0" fx:id="unit_course" />
-
 </AnchorPane>

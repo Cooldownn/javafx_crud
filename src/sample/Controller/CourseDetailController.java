@@ -3,8 +3,12 @@ package sample.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.*;
@@ -19,6 +23,7 @@ public class CourseDetailController implements Initializable {
     @FXML TextField detail_director;
     @FXML TextField detail_deputy;
     @FXML TextField detail_offer;
+    @FXML Button unitBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,6 +80,25 @@ public class CourseDetailController implements Initializable {
                     pstmt.executeUpdate();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
+                }
+            }
+        });
+
+        unitBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/UnitList.fxml"));
+                    Parent root = loader.load();
+                    UnitListController controller = loader.getController();
+                    controller.getID(detail_code.getText());
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setTitle("List of available units in course: " + detail_code.getText());
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

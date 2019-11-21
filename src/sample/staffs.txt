@@ -1,0 +1,17 @@
+8
+1122334455, Dr Minh Ngoc Dinh
+89 Nguyen Huu Tho Street 7 District Ho Chi Minh City
+1122334466, Dr Andrew Smith
+123 Nguyen Van Linh Street 7 District Ho Chi Minh City
+1122443355, Dr Minh Quang Tran
+23 Nguyen Huu Tho Street 7 District Ho Chi Minh City
+1144115533, Dr Thanh Pham Chi
+145 Nguyen Huu Canh Street 2 District Ho Chi Minh City
+1133224455, Dr Jonathan Crellin
+121 Tran Hung Dao Street 1 District Ho Chi Minh City
+1122553344, Dr Yossi Nygate
+25 Dang Huu Pho Street 2 District Ho Chi Minh City
+1234567890, Dr Thanh Ngoc Nguyen
+12 Quoc Huong Street 2 District Ho Chi Minh City
+1122111155, Dr Van Ngoc Thanh
+40 Mai Linh Street 6 District Ho Chi Minh City

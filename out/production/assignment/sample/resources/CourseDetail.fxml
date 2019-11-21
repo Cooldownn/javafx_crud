@@ -13,7 +13,7 @@
       <Label layoutX="14.0" layoutY="239.0" text="Location" />
       <TextField fx:id="detail_name" layoutX="121.0" layoutY="142.0" prefHeight="27.0" prefWidth="218.0" />
       <TextField fx:id="detail_code" layoutX="121.0" layoutY="187.0" prefHeight="27.0" prefWidth="218.0" />
-      <Button fx:id="detailSaveBtn" layoutX="205.0" layoutY="407.0" mnemonicParsing="false" text="SAVE" />
+      <Button fx:id="detailSaveBtn" layoutX="137.0" layoutY="380.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" text="SAVE" />
       <TextField fx:id="detail_offer" layoutX="121.0" layoutY="99.0" prefHeight="27.0" prefWidth="218.0" />
       <TextField fx:id="detail_desc" layoutX="121.0" layoutY="234.0" prefHeight="27.0" prefWidth="218.0" />
       <Label layoutX="14.0" layoutY="289.0" text="Course Director" />
@@ -22,5 +22,6 @@
       <TextField fx:id="detail_deputy" layoutX="121.0" layoutY="330.0" prefHeight="27.0" prefWidth="218.0" />
       <Label layoutX="14.0" layoutY="63.0" text="ID" />
       <TextField fx:id="detail_id" layoutX="121.0" layoutY="58.0" prefHeight="27.0" prefWidth="218.0" />
+      <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="List of available units" fx:id="unitBtn"/>
    </children>
 </AnchorPane>

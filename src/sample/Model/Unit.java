@@ -6,16 +6,18 @@ public class Unit {
     private String unitCode;
     private String unitExam;
     private String unitLec;
+    private String unitOffer;
 
     public Unit() {
     }
 
-    public Unit(int id, String unitName, String unitCode, String unitExam, String unitLec) {
+    public Unit(int id, String unitName, String unitCode, String unitExam, String unitLec, String unitOffer) {
         this.id = id;
         this.unitName = unitName;
         this.unitCode = unitCode;
         this.unitExam = unitExam;
         this.unitLec = unitLec;
+        this.unitOffer = unitOffer;
     }
 
     public int getId() {
@@ -56,5 +58,13 @@ public class Unit {
 
     public void setUnitLec(String unitLec) {
         this.unitLec = unitLec;
+    }
+
+    public String getUnitOffer() {
+        return unitOffer;
+    }
+
+    public void setUnitOffer(String unitOffer) {
+        this.unitOffer = unitOffer;
     }
 }

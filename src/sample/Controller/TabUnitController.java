@@ -29,7 +29,6 @@ public class TabUnitController implements Initializable
     @FXML Button unitAddBtn;
     @FXML ComboBox unit_box;
     @FXML Button unitDelBtn;
-    @FXML ComboBox unit_course;
 
     private String offer = "";
     private int index;
@@ -64,34 +63,6 @@ public class TabUnitController implements Initializable
             @Override
             public void handle(ActionEvent event) {
                 offer = unit_box.getValue().toString();
-            }
-        });
-
-        // Combo Box Course
-        ObservableList<String> mList = FXCollections.observableArrayList();
-        String mSql = "SELECT course_code, course_offer FROM Course";
-        try {
-            Connection conn = this.connect();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(mSql);
-
-            while(rs.next()) {
-                String courseCode = rs.getString("course_code");
-                String courseOffer = rs.getString("course_offer");
-                String combine = courseCode + " - " + courseOffer;
-                mList.add(combine);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        unit_course.setItems(mList);
-        unit_course.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                s1 = unit_course.getValue().toString();
-                chooseCourse = s1.substring(0,5);
-                chooseOffer = s1.substring(8);
-                System.out.println(chooseCourse);
             }
         });
 
@@ -190,35 +161,13 @@ public class TabUnitController implements Initializable
                 unit.setUnitName(name);
                 unit.setUnitCode(code);
                 list.add(unit);
+                index = mID + 1;
 
                 // Clear Content
                 unit_name.clear();
                 unit_code.clear();
                 unit_lecturer.clear();
                 unit_examiner.clear();
-
-                // If choose to add course
-                // Check Level 1,2,3 to UG and 4,5 to PG
-                int inputCode = Integer.valueOf(code.substring(4,5));
-                if (inputCode < 4 && chooseOffer.equals("PG")) {
-                    alertError.setContentText("Cannot add to course");
-                    alertError.show();
-                    return;
-                }
-                if (inputCode > 3 && chooseOffer.equals("UG")) {
-                    alertError.setContentText("Cannot add to course");
-                    alertError.show();
-                    return;
-                }
-                String mSql = "INSERT INTO Course_Unit(course_code, unit_code) VALUES(?,?)";
-                try (Connection conn = TabUnitController.this.connect();
-                     PreparedStatement st = conn.prepareStatement(mSql)) {
-                    st.setString(1,chooseCourse);
-                    st.setString(2,code);
-                    st.executeUpdate();
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
-                }
             }
         });
 
