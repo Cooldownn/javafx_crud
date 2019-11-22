@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="ok">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/CourseDetailController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/CourseDetailController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/CourseDetailController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/CourseDetailController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/CourseDetailController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/CourseDetailController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabStaffController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabStaffController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabCourseController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabUnitController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabUnitController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabUnitController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabUnitController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabUnitController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabUnitController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabUnitController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/TabUnitController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/UnitDetailController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/UnitDetailController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/UnitDetailController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/UnitDetailController$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/UnitDetailController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/UnitDetailController$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Controller/UnitDetailController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Controller/UnitDetailController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/Service/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/Service/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/resources/CourseDetail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/resources/CourseDetail.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/resources/TabStaff.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/resources/TabStaff.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/resources/UnitDetail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/resources/UnitDetail.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller/CourseDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/CourseDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller/TabStaffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/TabStaffController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/resources/TabCourse.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/resources/TabCourse.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assignment/sample/resources/TabUnit.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assignment/sample/resources/TabUnit.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Controller/TabCourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/TabCourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Controller/TabUnitController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/TabUnitController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Controller/UnitDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/UnitDetailController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Service/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Service/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/resources/CourseDetail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/resources/CourseDetail.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/resources/TabStaff.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/resources/TabStaff.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/resources/UnitDetail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/resources/UnitDetail.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/resources/TabCourse.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/resources/TabCourse.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/resources/TabUnit.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/resources/TabUnit.fxml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -291,8 +294,17 @@
       <workItem from="1574319211265" duration="5363000" />
       <workItem from="1574328883647" duration="536000" />
       <workItem from="1574335154877" duration="449000" />
-      <workItem from="1574344336363" duration="2436000" />
+      <workItem from="1574344336363" duration="2650000" />
+      <workItem from="1574390547230" duration="10053000" />
     </task>
+    <task id="LOCAL-00001" summary="ok">
+      <created>1574347328167</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1574347328167</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -314,5 +326,7 @@
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <MESSAGE value="ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="ok" />
   </component>
 </project>

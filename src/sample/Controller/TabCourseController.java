@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import sample.Model.Course;
 
@@ -29,17 +28,27 @@ public class TabCourseController implements Initializable
     @FXML Button delBtn;
     @FXML TextField tf_name;
     @FXML TextField tf_code;
-    @FXML TextField tf_director;
-    @FXML TextField tf_deputy;
+    @FXML ComboBox box_director;
+    @FXML ComboBox box_deputy;
     @FXML Label nextID;
     @FXML RadioButton radio_sgs;
     @FXML RadioButton radio_hn;
     @FXML ComboBox course_box;
+    @FXML ComboBox box_code;
+    @FXML Button mButton;
+
     private int index;
     private int delID;
     private int tableRow;
     private String radio = "";
     private String type = "";
+    private String director = "";
+    private String deputy = "";
+    private String mCode = "";
+    private String delCode = "";
+    private int id = 0;
+    private int currentIndex;
+    private int nextIndex;
 
     private Connection connect() {
         // SQLite connection string
@@ -73,7 +82,7 @@ public class TabCourseController implements Initializable
             }
         });
 
-        // Combo Box
+        // Combo Box Type
         ObservableList<String> mBox = FXCollections.observableArrayList(
                 "UG","PG"
         );
@@ -82,6 +91,51 @@ public class TabCourseController implements Initializable
             @Override
             public void handle(ActionEvent event) {
                 type = course_box.getValue().toString();
+            }
+        });
+
+        // Combo Box Director and Deputy
+        ObservableList<String> staffList = FXCollections.observableArrayList();
+        String sql1 = "SELECT staff_name FROM Staff";
+        try {
+            Connection conn = this.connect();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql1);
+
+            while (rs.next()) {
+                String staffName = rs.getString("staff_name");
+                staffList.add(staffName);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        box_director.setItems(staffList);
+        box_director.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                director = box_director.getValue().toString();
+            }
+        });
+
+        // Combo Box Deputy
+        box_deputy.setItems(staffList);
+        box_deputy.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                deputy = box_deputy.getValue().toString();
+            }
+        });
+
+        // Combo Box Code
+        ObservableList<String> codeBox = FXCollections.observableArrayList(
+                "BH","BP"
+        );
+        box_code.setItems(codeBox);
+        box_code.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                mCode = box_code.getValue().toString();
             }
         });
 
@@ -111,12 +165,12 @@ public class TabCourseController implements Initializable
                 course.setCourseCode(rs.getString("course_code"));
                 course.setCourseDesc(rs.getString("course_desc"));
                 index = rs.getInt("id");
+                id = index + 1;
                 list.add(course);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         addBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -126,8 +180,6 @@ public class TabCourseController implements Initializable
                 String name = tf_name.getText();
                 String code = tf_code.getText();
                 String desc = radio;
-                String director = tf_director.getText();
-                String deputy = tf_deputy.getText();
 
                 if (type.isEmpty()) {
                     return;
@@ -145,6 +197,20 @@ public class TabCourseController implements Initializable
                     alertError.show();
                     return;
                 }
+
+                if (code.length() != 3) {
+                    tf_code.requestFocus();
+                    alertError.setContentText("Course code must be 3 digit numbers");
+                    alertError.show();
+                    return;
+                }
+
+                if (mCode.isEmpty()) {
+                    alertError.setContentText("Please choose available course code");
+                    alertError.show();
+                    return;
+                }
+
                 if (desc.isEmpty()) {
                     alertError.setContentText("Please choose location");
                     alertError.show();
@@ -152,51 +218,54 @@ public class TabCourseController implements Initializable
                 }
 
                 if (director.isEmpty()) {
-                    tf_director.requestFocus();
                     alertError.setContentText("You cannot leave Course Director blank");
                     alertError.show();
                     return;
                 }
 
                 if (deputy.isEmpty()) {
-                    tf_deputy.requestFocus();
                     alertError.setContentText("You cannot leave Course Deputy blank");
                     alertError.show();
                     return;
                 }
 
-                String sql = "INSERT INTO Course(course_name, course_code, course_desc, course_director, course_deputy, course_offer) VALUES(?,?,?,?,?,?)";
+                currentIndex = index + 1;
+
+                String sql = "INSERT INTO Course(id, course_name, course_code, course_desc, course_director, course_deputy, course_offer) VALUES(?,?,?,?,?,?,?)";
 
                 try (Connection conn = TabCourseController.this.connect();
                      PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setString(1, name);
-                    pstmt.setString(2, code);
-                    pstmt.setString(3, desc);
-                    pstmt.setString(4,director);
-                    pstmt.setString(5,deputy);
-                    pstmt.setString(6, type);
-                    pstmt.executeUpdate();
-                    alertSuccess.setContentText("Successfully create new course");
-                    alertSuccess.show();
+                    pstmt.setInt(1, id);
+                    pstmt.setString(2, name);
+                    pstmt.setString(3, mCode +code);
+                    pstmt.setString(4, desc);
+                    pstmt.setString(5,director);
+                    pstmt.setString(6,deputy);
+                    pstmt.setString(7, type);
+                    int i = pstmt.executeUpdate();
+                    if (i > 0) {
+                        alertSuccess.setContentText("Successfully create new course");
+                        alertSuccess.show();
+                        Course course = new Course();
+                        course.setId(id);
+                        course.setCourseName(name);
+                        course.setCourseCode(mCode + code);
+                        course.setCourseDesc(radio);
+                        list.add(course);
+
+                        // Clear
+                        tf_name.clear();
+                        tf_code.clear();
+
+                        // Increase ID
+                        id++;
+                        nextIndex = id;
+                    } else {
+                        System.out.println("Course code has been taken");
+                    }
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
-
-                int mID = index + 1;
-                Course course = new Course();
-                course.setId(mID);
-                course.setCourseName(name);
-                course.setCourseCode(code);
-                course.setCourseDesc(radio);
-                list.add(course);
-
-                // Clear
-                mID = mID + 1;
-                nextID.setText(String.valueOf(mID));
-                tf_name.clear();
-                tf_code.clear();
-                tf_director.clear();
-                tf_deputy.clear();
             }
         });
         course_table.setItems(list);
@@ -215,6 +284,7 @@ public class TabCourseController implements Initializable
                     Course clickedRow = row.getItem();
                     tableRow = row.getIndex();
                     delID = clickedRow.getId();
+                    delCode = clickedRow.getCourseCode();
                 }
             });
             return row;
@@ -243,6 +313,36 @@ public class TabCourseController implements Initializable
                 }
 
                 course_table.getItems().remove(tableRow);
+
+                if (delID == index) {
+                    id = delID;
+                }
+
+                if (delCode.isEmpty()) {
+                    System.out.println("None");
+                    return;
+                } else {
+                    String delSql = "DELETE FROM Course_Unit WHERE course_code = ?";
+                    try (Connection conn = TabCourseController.this.connect();
+                    PreparedStatement ps = conn.prepareStatement(delSql)) {
+                        ps.setString(1, delCode);
+                        ps.executeUpdate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (delID == index) {
+                    id = delID;
+                }
+            }
+        });
+
+        mButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ObservableList<Course> newList = tableData();
+                    course_table.setItems(newList);
             }
         });
 
@@ -262,5 +362,29 @@ public class TabCourseController implements Initializable
             e.printStackTrace();
         }
     }
+
+     ObservableList<Course> tableData() {
+         ObservableList<Course> mList = FXCollections.observableArrayList();
+
+        String sql = "SELECT id, course_name, course_code, course_desc FROM Course";
+        try {
+            Connection conn = this.connect();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                Course course = new Course();
+                course.setId(rs.getInt("id"));
+                course.setCourseName(rs.getString("course_name"));
+                course.setCourseCode(rs.getString("course_code"));
+                course.setCourseDesc(rs.getString("course_desc"));
+                mList.add(course);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return mList;
+    }
+
 
 }

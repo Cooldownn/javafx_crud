@@ -9,23 +9,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.TabCourseController">
-    <Button fx:id="addBtn" layoutX="590.0" layoutY="412.0" text="Add Course" textFill="#111111" />
+    <Button fx:id="addBtn" layoutX="588.0" layoutY="412.0" text="Add Course" textFill="#111111" />
     <TableView fx:id="course_table" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="475.0">
     </TableView>
    <Label layoutX="554.0" layoutY="77.0" text="Course Name" />
-   <TextField fx:id="tf_name" layoutX="554.0" layoutY="101.0" />
+   <TextField fx:id="tf_name" layoutX="554.0" layoutY="101.0" prefHeight="27.0" prefWidth="160.0" />
    <Label layoutX="556.0" layoutY="142.0" text="Course Code" />
-   <TextField fx:id="tf_code" layoutX="554.0" layoutY="166.0" />
+   <TextField fx:id="tf_code" layoutX="644.0" layoutY="166.0" prefWidth="70.0" />
    <Label layoutX="554.0" layoutY="210.0" text="Location" />
    <Label layoutX="554.0" layoutY="14.0" text="Type" />
    <Label fx:id="nextID" layoutX="572.0" layoutY="43.0" prefHeight="17.0" prefWidth="25.0" />
-   <Button fx:id="delBtn" layoutX="481.0" layoutY="236.0" text="DELETE" textFill="#f50303" />
+   <Button fx:id="delBtn" layoutX="479.0" layoutY="236.0" prefWidth="66.5" text="DELETE" textFill="#f50303" />
    <Label layoutX="554.0" layoutY="273.0" text="Course Director" />
-   <TextField fx:id="tf_director" layoutX="554.0" layoutY="297.0" />
    <Label layoutX="554.0" layoutY="338.0" text="Deputy Course Director" />
-   <TextField fx:id="tf_deputy" layoutX="554.0" layoutY="361.0" />
    <RadioButton fx:id="radio_sgs" layoutX="556.0" layoutY="241.0" mnemonicParsing="false" text="SGS" />
    <RadioButton fx:id="radio_hn" layoutX="640.0" layoutY="241.0" mnemonicParsing="false" text="HN" />
-   <ComboBox fx:id="course_box" layoutX="554.0" layoutY="38.0" prefHeight="27.0" prefWidth="161.0" />
+   <ComboBox fx:id="course_box" layoutX="554.0" layoutY="38.0" prefHeight="27.0" prefWidth="160.0" />
+   <ComboBox fx:id="box_director" layoutX="554.0" layoutY="297.0" prefHeight="27.0" prefWidth="160.0" />
+   <ComboBox fx:id="box_deputy" layoutX="554.0" layoutY="364.0" prefHeight="27.0" prefWidth="160.0" />
+   <ComboBox fx:id="box_code" layoutX="554.0" layoutY="166.0" prefWidth="80.0" />
+   <Button fx:id="mButton" layoutX="479.0" layoutY="205.0" mnemonicParsing="false" prefWidth="66.5" text="RELOAD" textFill="#1157ee" />
 
 </AnchorPane>

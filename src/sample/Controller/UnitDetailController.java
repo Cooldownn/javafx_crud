@@ -54,6 +54,7 @@ public class UnitDetailController implements Initializable {
         unit_detailExaminer.setEditable(false);
         unit_detailLecturer.setEditable(false);
         unit_detailID.setEditable(false);
+        unit_detailCode.setEditable(false);
 
         // Combo Box New Course
         ObservableList<String> mList = FXCollections.observableArrayList();

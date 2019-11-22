@@ -10,16 +10,18 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.TabUnitController">
     <TableView fx:id="unit_table" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="475.0">
     </TableView>
-   <Label layoutX="569.0" layoutY="20.0" text="Name" />
-   <TextField fx:id="unit_name" layoutX="570.0" layoutY="40.0" />
-   <Label layoutX="570.0" layoutY="80.0" text="Code" />
-   <TextField fx:id="unit_code" layoutX="570.0" layoutY="100.0" />
-   <Label layoutX="570.0" layoutY="140.0" text="Chief Examiner" />
-   <TextField fx:id="unit_examiner" layoutX="570.0" layoutY="160.0" />
-   <Label layoutX="570.0" layoutY="200.0" text="Lecturer" />
-   <TextField fx:id="unit_lecturer" layoutX="570.0" layoutY="220.0" />
-   <Label layoutX="570.0" layoutY="260.0" text="Offer" />
-   <ComboBox fx:id="unit_box" layoutX="570.0" layoutY="280.0" prefHeight="27.0" prefWidth="161.0" />
-   <Button fx:id="unitAddBtn" layoutX="616.0" layoutY="410.0" mnemonicParsing="false" text="Add New" />
-   <Button fx:id="unitDelBtn" layoutX="488.0" layoutY="215.0" mnemonicParsing="false" text="DELETE" textFill="#f50606" />
+   <Label layoutX="550.0" layoutY="20.0" text="Name" />
+   <TextField fx:id="unit_name" layoutX="550.0" layoutY="40.0" prefWidth="200.0" />
+   <Label layoutX="550.0" layoutY="80.0" text="Code" />
+   <TextField fx:id="unit_code" layoutX="650.0" layoutY="100.0" prefWidth="100.0" />
+   <Label layoutX="550.0" layoutY="140.0" text="Chief Examiner" />
+   <Label layoutX="550.0" layoutY="200.0" text="Lecturer" />
+   <Label layoutX="550.0" layoutY="260.0" text="Offer" />
+   <ComboBox fx:id="unit_box" layoutX="550.0" layoutY="280.0" prefHeight="27.0" prefWidth="200.0" />
+   <Button fx:id="unitAddBtn" layoutX="616.0" layoutY="384.0" mnemonicParsing="false" text="Add New" />
+   <Button fx:id="unitDelBtn" layoutX="480.0" layoutY="195.0" mnemonicParsing="false" prefWidth="66.5" text="DELETE" textFill="#f50606" />
+   <ComboBox fx:id="box_code" layoutX="550.0" layoutY="100.0" prefWidth="90.0" />
+   <ComboBox fx:id="box_examiner" layoutX="550.0" layoutY="160.0" prefWidth="200.0" />
+   <ComboBox fx:id="box_lecturer" layoutX="550.0" layoutY="220.0" prefWidth="200.0" />
+   <Button fx:id="mButton" layoutX="480.0" layoutY="160.0" mnemonicParsing="false" text="RELOAD" textFill="#0776f5" />
 </AnchorPane>

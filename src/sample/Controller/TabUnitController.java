@@ -24,19 +24,21 @@ public class TabUnitController implements Initializable
     @FXML TableView unit_table;
     @FXML TextField unit_name;
     @FXML TextField unit_code;
-    @FXML TextField unit_examiner;
-    @FXML TextField unit_lecturer;
+    @FXML ComboBox box_examiner;
+    @FXML ComboBox box_lecturer;
     @FXML Button unitAddBtn;
     @FXML ComboBox unit_box;
     @FXML Button unitDelBtn;
+    @FXML ComboBox box_code;
+    @FXML Button mButton;
 
     private String offer = "";
     private int index;
     private int tableRow;
     private int delID;
-    private String s1;
-    private String chooseCourse;
-    private String chooseOffer;
+    private String mCode = "";
+    private String mExaminer = "";
+    private String mLecturer = "";
 
     private Connection connect() {
         // SQLite connection string
@@ -63,6 +65,50 @@ public class TabUnitController implements Initializable
             @Override
             public void handle(ActionEvent event) {
                 offer = unit_box.getValue().toString();
+            }
+        });
+
+        // Combo Box Code
+        ObservableList<String> codeList = FXCollections.observableArrayList(
+                "EEET","COSC","OENG","MIET","ISYS"
+        );
+        box_code.setItems(codeList);
+        box_code.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                mCode = box_code.getValue().toString();
+            }
+        });
+
+        // Combo Box Lecturer and Examiner
+        ObservableList<String> staffList = FXCollections.observableArrayList();
+        String sql1 = "SELECT staff_name FROM Staff";
+        try {
+            Connection conn = this.connect();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql1);
+
+            while (rs.next()) {
+                String staffName = rs.getString("staff_name");
+                staffList.add(staffName);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        box_examiner.setItems(staffList);
+        box_examiner.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                 mExaminer = box_examiner.getValue().toString();
+            }
+        });
+
+        box_lecturer.setItems(staffList);
+        box_lecturer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                mLecturer = box_lecturer.getValue().toString();
             }
         });
 
@@ -106,8 +152,6 @@ public class TabUnitController implements Initializable
 
                 String name = unit_name.getText();
                 String code = unit_code.getText();
-                String examiner = unit_examiner.getText();
-                String lecturer = unit_lecturer.getText();
 
                 if (name.isEmpty()) {
                     unit_name.requestFocus();
@@ -121,14 +165,29 @@ public class TabUnitController implements Initializable
                     alertError.show();
                     return;
                 }
-                if (examiner.isEmpty()) {
-                    unit_examiner.requestFocus();
+                if (!isNumeric(code)) {
+                    unit_code.requestFocus();
+                    alertError.setContentText("Unit code should be numbers");
+                    alertError.show();
+                    return;
+                }
+                if (code.length() != 4) {
+                    unit_code.requestFocus();
+                    alertError.setContentText("Unit code must be 4 digit numbers");
+                    alertError.show();
+                    return;
+                }
+                if (mCode.isEmpty()) {
+                    alertError.setContentText("Pleaes choose available unit code");
+                    alertError.show();
+                    return;
+                }
+                if (mExaminer.isEmpty()) {
                     alertError.setContentText("Please fill in Unit examiner");
                     alertError.show();
                     return;
                 }
-                if (lecturer.isEmpty()) {
-                    unit_lecturer.requestFocus();
+                if (mLecturer.isEmpty()) {
                     alertError.setContentText("Please fill in Unit lecturer");
                     alertError.show();
                     return;
@@ -143,31 +202,33 @@ public class TabUnitController implements Initializable
                 try (Connection conn = TabUnitController.this.connect();
                      PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, name);
-                    pstmt.setString(2, code);
-                    pstmt.setString(3, examiner);
-                    pstmt.setString(4,lecturer);
+                    pstmt.setString(2, mCode + code);
+                    pstmt.setString(3, mExaminer);
+                    pstmt.setString(4,mLecturer);
                     pstmt.setString(5,offer);
-                    pstmt.executeUpdate();
-                    alertSuccess.setContentText("Successfully create new unit");
-                    alertSuccess.show();
+                    int i = pstmt.executeUpdate();
+                    if (i > 0) {
+                        alertSuccess.setContentText("Successfully create new unit");
+                        alertSuccess.show();
+                        // Set table after adding
+                        int mID = index + 1;
+                        Unit unit = new Unit();
+                        unit.setId(mID);
+                        unit.setUnitName(name);
+                        unit.setUnitCode(mCode + code);
+                        list.add(unit);
+                        index = mID + 1;
+
+                        // Clear Content
+                        unit_name.clear();
+                        unit_code.clear();
+                    } else {
+                        System.out.println("Unit code has been taken");
+                    }
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
 
-                // Set table after adding
-                int mID = index + 1;
-                Unit unit = new Unit();
-                unit.setId(mID);
-                unit.setUnitName(name);
-                unit.setUnitCode(code);
-                list.add(unit);
-                index = mID + 1;
-
-                // Clear Content
-                unit_name.clear();
-                unit_code.clear();
-                unit_lecturer.clear();
-                unit_examiner.clear();
             }
         });
 
@@ -211,6 +272,15 @@ public class TabUnitController implements Initializable
                 unit_table.getItems().remove(tableRow);
             }
         });
+
+        mButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ObservableList<Unit> list = tableData();
+                unit_table.setItems(list);
+
+            }
+        });
     }
 
     private void printRow(Unit item) {
@@ -226,5 +296,35 @@ public class TabUnitController implements Initializable
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean isNumeric(String strNum) {
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    ObservableList<Unit> tableData() {
+        ObservableList<Unit> list = FXCollections.observableArrayList();
+        String sql = "SELECT id, unit_name, unit_code FROM Unit";
+        try {
+            Connection conn = this.connect();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                Unit unit = new Unit();
+                unit.setId(rs.getInt("id"));
+                unit.setUnitName(rs.getString("unit_name"));
+                unit.setUnitCode(rs.getString("unit_code"));
+                list.add(unit);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
