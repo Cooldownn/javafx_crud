@@ -264,6 +264,8 @@ public class TabCourseController implements Initializable
                         System.out.println("Course code has been taken");
                     }
                 } catch (SQLException e) {
+                    alertError.setContentText("Course code has been taken");
+                    alertError.show();
                     System.out.println(e.getMessage());
                 }
             }

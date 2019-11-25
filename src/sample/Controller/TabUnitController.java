@@ -104,6 +104,7 @@ public class TabUnitController implements Initializable
             }
         });
 
+
         box_lecturer.setItems(staffList);
         box_lecturer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -197,6 +198,13 @@ public class TabUnitController implements Initializable
                     return;
                 }
 
+                int check = Integer.valueOf(code.substring(0,1));
+                if (check > 5) {
+                    alertError.setContentText("First unit code number should be less than 5");
+                    alertError.show();
+                    return;
+                }
+
                 String sql = "INSERT INTO Unit(unit_name, unit_code, unit_examiner, unit_lecturer, unit_offer) VALUES(?,?,?,?,?)";
 
                 try (Connection conn = TabUnitController.this.connect();
@@ -226,6 +234,8 @@ public class TabUnitController implements Initializable
                         System.out.println("Unit code has been taken");
                     }
                 } catch (SQLException e) {
+                    alertError.setContentText("Unit code has been taken");
+                    alertError.show();
                     System.out.println(e.getMessage());
                 }
 

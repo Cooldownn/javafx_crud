@@ -161,6 +161,8 @@ public class CourseDetailController implements Initializable {
             System.out.println(e.getMessage());
         }
         return conn;
+
+
     }
 
     public void myFunction(int id) {
