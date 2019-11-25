@@ -67,6 +67,17 @@ public class TabCourseController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         nextID.setVisible(false);
+
+        // Code only contains number
+        tf_code.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tf_code.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
         // Radio Button
         ToggleGroup tg = new ToggleGroup();
         radio_sgs.setToggleGroup(tg);

@@ -1,5 +1,7 @@
 package sample.Controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -56,6 +58,16 @@ public class TabUnitController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        // Unit code only contains number
+        unit_code.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    unit_code.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
         // Combo Box Offer
         ObservableList<String> mBox = FXCollections.observableArrayList(
                 "S1","S2","S3","S1 & S2","S1 & S3","S2 & S3", "S1 & S2 & S3"
