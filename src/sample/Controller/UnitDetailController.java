@@ -95,10 +95,12 @@ public class UnitDetailController implements Initializable {
                 if (check < 4 && isValid.equals("PG")) {
                     alertError.setContentText("UG Unit cannot add to PG Course");
                     alertError.show();
+                    return;
                 }
                 else if (check > 3 && check < 6 && isValid.equals("UG")) {
                     alertError.setContentText("PG Unit cannot add to UG Course");
                     alertError.show();
+                    return;
                 }
 
                 String mSQL = "INSERT INTO Course_Unit(course_code, unit_code) VALUES(?,?)";
@@ -251,5 +253,9 @@ public class UnitDetailController implements Initializable {
         }
         listView.setOrientation(Orientation.VERTICAL);
         listView.getItems().addAll(courseList);
+        if (courseList.size() == 0) {
+            courseList.add("Not available");
+            listView.getItems().addAll(courseList);
+        }
     }
 }

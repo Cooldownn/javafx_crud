@@ -2,20 +2,26 @@ package sample.Controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import sample.Model.Unit;
 
 import java.net.URL;
 import java.sql.*;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class UnitListController implements Initializable {
+
+    private String chooseCode = "";
+    private int index;
+
     @FXML TableView unitlist_table;
+    @FXML Button removeBtn;
 
     private Connection connect() {
         // SQLite connection string
@@ -33,7 +39,42 @@ public class UnitListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Alert alertError = new Alert(Alert.AlertType.ERROR);
+        Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
+        unitlist_table.setRowFactory(tv -> {
+            TableRow<Unit> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
+                    Unit clickedRow = row.getItem();
+                    index = row.getIndex();
+                    chooseCode = clickedRow.getUnitCode();
+                }
+            });
+            return row;
+        });
+        removeBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (chooseCode.isEmpty()) {
+                    alertError.setContentText("Please choose unit to remove");
+                    alertError.show();
+                    return;
+                }
+                String sql = "DELETE FROM Course_Unit WHERE unit_code = ?";
+                try (Connection conn = UnitListController.this.connect();
+                     PreparedStatement ps = conn.prepareStatement(sql)) {
+                    ps.setString(1, chooseCode);
+                    ps.executeUpdate();
 
+                    unitlist_table.getItems().remove(index);
+
+                    alertSuccess.setContentText("Successfully remove unit");
+                    alertSuccess.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void getID(String courseCode) {
